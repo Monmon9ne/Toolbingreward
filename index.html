@@ -24,17 +24,18 @@ body{
     background:#111827;
     display:flex;
     align-items:center;
-    gap:15px;
+    justify-content:center;
+    gap:18px;
     padding:15px;
     border-bottom:2px solid #1e293b;
 }
 
 button{
-    height:50px;
-    padding:0 24px;
+    height:55px;
+    padding:0 28px;
     border:none;
-    border-radius:14px;
-    font-size:18px;
+    border-radius:16px;
+    font-size:20px;
     font-weight:bold;
     color:white;
     cursor:pointer;
@@ -49,68 +50,31 @@ button:hover{
     background:linear-gradient(135deg,#2563eb,#7c3aed);
 }
 
-.browserBtn{
-    background:linear-gradient(135deg,#2563eb,#7c3aed);
-}
-
 .generateBtn{
     background:linear-gradient(135deg,#10b981,#059669);
-    display:none;
 }
 
-.viewer{
+.main{
     width:100%;
     height:calc(100vh - 80px);
-    position:relative;
-}
-
-iframe{
-    width:100%;
-    height:100%;
-    border:none;
-    display:none;
-    background:white;
-}
-
-iframe.active{
-    display:block;
-}
-
-.home{
-    width:100%;
-    height:100%;
     display:flex;
     align-items:center;
     justify-content:center;
     flex-direction:column;
-    gap:25px;
+    gap:30px;
     color:white;
     text-align:center;
     padding:20px;
 }
 
-.home h1{
-    font-size:55px;
-    background:linear-gradient(135deg,#3b82f6,#a855f7);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    font-weight:900;
-}
-
-.home p{
-    font-size:28px;
-    color:#cbd5e1;
-    font-weight:bold;
-}
-
 .glow{
-    width:170px;
-    height:170px;
+    width:180px;
+    height:180px;
     border-radius:50%;
     background:linear-gradient(135deg,#2563eb,#7c3aed);
     box-shadow:
-        0 0 50px #2563eb,
-        0 0 100px #7c3aed;
+        0 0 60px #2563eb,
+        0 0 120px #7c3aed;
     animation:spin 6s linear infinite;
 }
 
@@ -121,6 +85,38 @@ iframe.active{
     to{
         transform:rotate(360deg);
     }
+}
+
+h1{
+    font-size:58px;
+    font-weight:900;
+    background:linear-gradient(135deg,#3b82f6,#a855f7);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+p{
+    font-size:28px;
+    color:#cbd5e1;
+    font-weight:bold;
+}
+
+.searchBox{
+    width:90%;
+    max-width:900px;
+    min-height:70px;
+    background:#111827;
+    border:2px solid #374151;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+    font-size:28px;
+    font-weight:bold;
+    color:#10b981;
+    word-break:break-word;
+    box-shadow:0 0 25px rgba(16,185,129,.4);
 }
 </style>
 </head>
@@ -137,16 +133,7 @@ iframe.active{
     </button>
 
     <button
-        class="browserBtn"
-        onclick="showBrowser()">
-
-        Microsoft Browser
-
-    </button>
-
-    <button
         class="generateBtn"
-        id="generateBtn"
         onclick="generateSearch()">
 
         Generate Search
@@ -155,54 +142,36 @@ iframe.active{
 
 </div>
 
-<div class="viewer">
+<div class="main">
 
-    <div class="home" id="home">
+    <div class="glow"></div>
 
-        <div class="glow"></div>
+    <h1>
+        TOOL MAKE BY<br>
+        MONHUB / PICOBLOX
+    </h1>
 
-        <h1>
-            TOOL MAKE BY<br>
-            MONHUB / PICOBLOX
-        </h1>
+    <p>
+        ON TIKTOK
+    </p>
 
-        <p>
-            ON TIKTOK
-        </p>
+    <div
+        class="searchBox"
+        id="searchBox">
+
+        READY...
 
     </div>
-
-    <iframe
-        id="browser">
-    </iframe>
 
 </div>
 
 <script>
-const browser =
-    document.getElementById("browser")
-
-const generateBtn =
-    document.getElementById("generateBtn")
-
-const home =
-    document.getElementById("home")
-
 function openReward(){
 
     window.open(
         "https://rewards.bing.com",
         "_blank"
     )
-}
-
-function showBrowser(){
-
-    home.style.display = "flex"
-
-    browser.classList.remove("active")
-
-    generateBtn.style.display = "block"
 }
 
 const words = [
@@ -244,13 +213,15 @@ function generateSearch(){
 
     const query = randomWord()
 
-    home.style.display = "none"
+    document.getElementById(
+        "searchBox"
+    ).innerText = query
 
-    browser.classList.add("active")
-
-    browser.src =
+    window.open(
         "https://www.bing.com/search?q=" +
-        encodeURIComponent(query)
+        encodeURIComponent(query),
+        "_blank"
+    )
 }
 </script>
 
