@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microsoft Rewards Browser</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#0f172a;
+    overflow:hidden;
+}
+
+.topbar{
+    width:100%;
+    height:65px;
+    background:#111827;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    border-bottom:2px solid #1e293b;
+    padding:0 15px;
+}
+
+button{
+    padding:12px 22px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+    transition:.2s;
+    font-weight:bold;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+#generateBtn{
+    display:none;
+    background:linear-gradient(135deg,#059669,#10b981);
+}
+
+.viewer{
+    width:100%;
+    height:calc(100vh - 65px);
+    position:relative;
+}
+
+iframe{
+    width:100%;
+    height:100%;
+    border:none;
+    display:none;
+    position:absolute;
+    top:0;
+    left:0;
+    background:white;
+}
+
+iframe.active{
+    display:block;
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+
+    <button onclick="showFrame('reward')">
+        Microsoft Reward
+    </button>
+
+    <button onclick="showFrame('browser')">
+        Microsoft Browser
+    </button>
+
+    <button id="generateBtn" onclick="generateSearch()">
+        Generate Search
+    </button>
+
+</div>
+
+<div class="viewer">
+
+    <iframe
+        id="reward"
+        class="active">
+    </iframe>
+
+    <iframe
+        id="browser">
+    </iframe>
+
+</div>
+
+<script>
+const rewardFrame = document.getElementById("reward")
+const browserFrame = document.getElementById("browser")
+
+const pcUserAgent =
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+
+rewardFrame.src =
+"https://rewards.bing.com"
+
+browserFrame.src =
+"https://www.bing.com"
+
+let currentFrame = "reward"
+
+function showFrame(id){
+
+    currentFrame = id
+
+    document.querySelectorAll("iframe").forEach(frame=>{
+        frame.classList.remove("active")
+    })
+
+    document.getElementById(id).classList.add("active")
+
+    if(id === "browser"){
+        document.getElementById("generateBtn").style.display = "block"
+    }else{
+        document.getElementById("generateBtn").style.display = "none"
+    }
+}
+
+const words = [
+"technology","gaming","minecraft","roblox","artificial","intelligence",
+"space","music","coding","nature","animals","cars","movies","sports",
+"weather","science","history","crypto","anime","travel","food",
+"planet","galaxy","future","quantum","energy","computer","internet",
+"design","fashion","ocean","forest","mountain","photography","youtube",
+"streaming","keyboard","monitor","processor","windows","android",
+"iphone","server","network","security","hacker","developer","python",
+"javascript","lua","software","hardware","database","cloud","bitcoin",
+"ethereum","tesla","nasa","rocket","satellite","physics","chemistry",
+"biology","medicine","fitness","football","basketball","tennis","volleyball",
+"school","university","education","language","english","japanese","korean",
+"china","vietnam","america","france","germany","london","tokyo",
+"pizza","hamburger","chicken","coffee","tea","water","summer",
+"winter","autumn","spring","holiday","festival","concert","guitar",
+"piano","violin","camera","drone","robot","machine","learning",
+"neural","networking","system","algorithm","storage","memory","mobile",
+"application","website","browser","engine","search","google","bing",
+"microsoft","openai","chatgpt","discord","telegram","facebook","instagram",
+"twitter","tiktok","snapchat","reddit","forum","community","virtual",
+"reality","augmented","metaverse","blockchain","startup","business","finance",
+"economy","investment","marketing","advertising","shopping","delivery","transport",
+"electric","vehicle","motorcycle","airplane","airport","hotel","restaurant",
+"adventure","survival","simulation","strategy","puzzle","action","racing",
+"multiplayer","singleplayer","wireless","bluetooth","headphones","speaker","microphone",
+"television","cinema","series","documentary","sciencefiction","fantasy","mystery",
+"detective","architecture","engineering","mathematics","statistics","probability","equation",
+"calculus","geometry","algebra","programming","interface","animation","graphics",
+"processor","motherboard","cooling","gamingchair","smartphone","tablet","watch",
+"internetofthings","automation","productivity","creativity","innovation","wirelesscharger"
+]
+
+while(words.length < 900){
+
+    const random =
+        Math.random().toString(36).substring(2,10)
+
+    words.push(random)
+}
+
+function randomWord(){
+
+    return words[
+        Math.floor(Math.random() * words.length)
+    ]
+}
+
+function generateSearch(){
+
+    const query = randomWord()
+
+    browserFrame.src =
+        "https://www.bing.com/search?q=" +
+        encodeURIComponent(query)
+}
+</script>
+
+</body>
+  </html>
